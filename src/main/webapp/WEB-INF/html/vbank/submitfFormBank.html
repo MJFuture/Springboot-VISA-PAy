@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title th:text="支付頁面"></title>
+		<link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"	href="../static/css/bootstrap.min.css" />
+		<link rel="stylesheet" th:href="@{/static/css/font-awesome.css}"	href="../static/css/font-awesome.css" />
+		<link rel="stylesheet" th:href="@{/static/css/paging.css}"	href="../static/css/paging.css" />
+		<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}"	href="../static/layui/css/layui.css" />
+		<script th:src="@{/static/js/jquery.js}"></script>
+		<script th:src="@{/static/js/bootstrap.js}"></script>
+		<script th:src="@{/static/layer/layer.js}"></script>
+		<script th:src="@{/static/layui/layui.js}"></script>
+		<script>
+			function pay(){
+			$.ajax( {
+				type : 'get',
+				url : 'virtualSuccess',
+				dataType : 'json',
+				async : false,
+				success : function(map) {
+					
+				}
+				
+			});
+			}
+		</script>
+	</head>
+	
+	<body>
+	<div style="margin-left: 25%; margin-top: 15%;">
+	<h1>VISA支付demo參數</h1>
+<!-- 	<form name="payFormCcard" method="post" action="https://www.paydollar.com/b2c2/eng/payment/payForm.jsp"> -->
+	<form name="payFormCcard" method="post" action="http://192.168.41.58:8088/virtualBank/pay/virtualRequest">
+		<input type="text" name="merchantId" th:value="${map.merchantId}"><br/>
+		<input type="text" name="amount" th:value="${map.amount}" ><br/>
+		<input type="text" name="orderRef" th:value="${map.orderRef}"><br/>
+		<input type="text" name="remark" th:value="${map.remark}"><br/>
+		<input type="text" name="secureHash" th:value="${map.secureHash}"><br/>
+		
+		<!-- 	
+				支付方式 一下可以選  直接定義全部都可以
+				“ALL” – All the available payment method
+				“CC” – Credit Card Payment
+				“PPS” – PayDollar PPS Payment
+				“PAYPAL” – PayPal By PayDollar Payment
+				“CUP” – PayDollar CUP Payment
+				“ALIPAY” – PayDollar ALIPAY Payment 
+		 -->
+		<input type="hidden" name="payMethod" th:value="ALL" ><br/>
+		<!-- 
+			The payment card type ---》  支付卡类型
+		可選 (“VISA”,“Master”,”Diners”,”JCB”, “AMEX”) 
+			具體可參照文檔
+		 -->
+		<input type="text" name="pMethod" th:value="VISA" ><br/>
+		<!-- 支付貨幣類型  344 HKD  156 RMB -->
+		<input type="text" name="currCode" th:value="344" ><br/>
+		<!-- 立即付款 ,具體可看文檔-->
+		<input type="text" name="payType" th:value="N"><br/>
+		<!-- 語言 E,英,C，中文  -->
+		<input type="text" name="lang" th:value="E"><br/>
+		
+		<!-- 
+			本項目給銀行返回的結果的連接，告知操作人支付成功還是失敗
+			PS: 自定義連接
+		 -->
+		<input type="text" name="successUrl" value="http://www.yourdomain.com/Success.html"><br/>
+		<input type="text" name="failUrl" value="http://www.yourdomain.com/Fail.html"><br/>
+		<input type="text" name="cancelUrl" value="http://www.yourdomain.com/Cancel.html"><br/>
+		
+		<input type="submit" name="submit" value="提交">
+	</form> 
+	
+	
+	</div>
+	
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title th:text="支付頁面"></title>
+		<link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"	href="../static/css/bootstrap.min.css" />
+		<link rel="stylesheet" th:href="@{/static/css/font-awesome.css}"	href="../static/css/font-awesome.css" />
+		<link rel="stylesheet" th:href="@{/static/css/paging.css}"	href="../static/css/paging.css" />
+		<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}"	href="../static/layui/css/layui.css" />
+		<script th:src="@{/static/js/jquery.js}"></script>
+		<script th:src="@{/static/js/bootstrap.js}"></script>
+		<script th:src="@{/static/layer/layer.js}"></script>
+		<script th:src="@{/static/layui/layui.js}"></script>
+		<script>
+			function pay(){
+			$.ajax( {
+				type : 'get',
+				url : 'virtualSuccess',
+				dataType : 'json',
+				async : false,
+				success : function(map) {
+					
+				}
+				
+			});
+			}
+		</script>
+	</head>
+	
+	<body>
+	<div style="margin-left: 25%; margin-top: 15%;">
+	<a class="btn btn-success" th:href="${map.successUrl}" th:onclick="pay()" th:text="付款成功">付款成功</a>
+	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;
+	<a class="btn btn-warning" th:href="${map.failUrl}" th:text="付款失敗">付款失敗</a>
+	</div>
+	
+	</body>
+</html>
